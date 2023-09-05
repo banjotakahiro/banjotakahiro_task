@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Document</title>
 </head>
 
@@ -13,22 +14,24 @@
         <h1>タスク一覧</h1>
     @endif
     @foreach ($posts as $post)
-        <a href="posts/{{ $post->id }}">{{ $post->title }}</a>
-        <form action="/posts/{{ $post->id }}" method="post">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="削除" onclick="if(!confirm('削除しますか？')){ return false };">
-        </form>
+        <div class="show_form" >
+            <a href="posts/{{ $post->id }}">{{ $post->title }}</a>
+            <form action="/posts/{{ $post->id }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="submit" value="削除" onclick="if(!confirm('削除しますか？')){ return false };">
+            </form>
+        </div>
     @endforeach
     <h1>新規論文投稿</h1>
-    
+
     @if ($errors->any())
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-2" role="alert">
             <p>
                 <b>{{ count($errors) }}件のエラーがあります。</b>
             </p>
             <ul>
-                @foreach($errors->all() as $error)
+                @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
